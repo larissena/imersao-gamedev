@@ -3,6 +3,7 @@ let imagemPersonagem;
 let imagemInimigo;
 let imagemInimigoGrande;
 let imagemInimigoVoador;
+let imagemGameOver;
 
 let cenario;
 let pontuacao;
@@ -114,6 +115,7 @@ const inimigos = [];
 
 function preload() {
   imagemCenario = loadImage('imagens/cenario/floresta.png');
+  imagemGameOver = loadImage('imagens/assets/game-over.png');
   imagemPersonagem = loadImage('imagens/personagem/correndo.png');
   imagemInimigo = loadImage('imagens/inimigos/gotinha.png');
   imagemInimigoGrande = loadImage('imagens/inimigos/troll.png');
@@ -161,6 +163,7 @@ function draw() {
     inimigo.move();
 
     if (personagem.estaColidindo(inimigo)) {
+      image(imagemGameOver, width/2 - 200, height/3);
       noLoop();
     }
   })
