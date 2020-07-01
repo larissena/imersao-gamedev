@@ -14,6 +14,8 @@ let personagem;
 let inimigoGrande;
 let inimigoVoador; */
 
+let inimigoAtual = 0;
+
 const matrizInimigo = [
   [0, 0],
   [105, 0],
@@ -158,15 +160,24 @@ function draw() {
   personagem.exibe();
   personagem.aplicaGravidade();
 
-  inimigos.forEach(inimigo => {
-    inimigo.exibe();
-    inimigo.move();
+  const inimigo = inimigos[inimigoAtual];
+  const inimigoVisivel = inimigo.x < -inimigo.largura;
 
-    if (personagem.estaColidindo(inimigo)) {
-      image(imagemGameOver, width/2 - 200, height/3);
-      noLoop();
+  inimigo.exibe();
+  inimigo.move();
+
+  if (inimigoVisivel) {
+    inimigoAtual++;
+    if (inimigoAtual > inimigos.length) {
+      inimigoAtual = 0;
     }
-  })
+    inimigo.velocidade = parseInt(random(10, 30));
+  }
+
+  if (personagem.estaColidindo(inimigo)) {
+    image(imagemGameOver, width/2 - 200, height/3);
+    noLoop();
+  }
 
 
 
