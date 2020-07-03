@@ -1,5 +1,5 @@
 let cenas;
-let cenaAtual = 'telaInicial';
+let cenaAtual = 'jogo';
 let telaInicial;
 let jogo;
 let botao;
@@ -11,6 +11,7 @@ let imagemPersonagem;
 let imagemInimigo;
 let imagemInimigoGrande;
 let imagemInimigoVoador;
+let imagemVida;
 let imagemGameOver;
 
 let cenario;
@@ -18,6 +19,7 @@ let pontuacao;
 let somDoJogo;
 let somPulo;
 let personagem;
+let vida;
 /* let inimigo;
 let inimigoGrande;
 let inimigoVoador; */

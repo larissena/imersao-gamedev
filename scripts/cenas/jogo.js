@@ -6,6 +6,7 @@ class Jogo {
   setup() {
     cenario = new Cenario(imagemCenario, 3);
     pontuacao = new Pontuacao();
+    vida = new Vida(3, 3);
     personagem = new Personagem(matrizPersonagem, imagemPersonagem, 0, 30, 110, 135, 220, 270);
     const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 52, 30,52, 52, 104, 104);
     const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width - 200, 20,200, 200, 400, 400);
@@ -26,6 +27,8 @@ class Jogo {
   draw() {
     cenario.exibe();
     cenario.move();
+
+    vida.exibe();
 
     pontuacao.exibe();
     pontuacao.adicionarPonto();
@@ -48,6 +51,8 @@ class Jogo {
     }
 
     if (personagem.estaColidindo(inimigo)) {
+      vida.perdeVida();
+
       image(imagemGameOver, width/2 - 200, height/3);
       noLoop();
     }
