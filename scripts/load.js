@@ -1,4 +1,6 @@
 function preload() {
+  cartucho = loadJSON('cartucho/cartucho.json');
+
   imagemTelaInicial = loadImage('imagens/cenario/tela-inicial.png');
   fonteTelaInicial = loadFont('imagens/assets/fonteTelaInicial.otf');
   imagemCenario = loadImage('imagens/cenario/floresta.png');

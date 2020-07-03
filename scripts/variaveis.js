@@ -1,3 +1,5 @@
+let cartucho;
+
 let cenas;
 let cenaAtual = 'jogo';
 let telaInicial;

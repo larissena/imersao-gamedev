@@ -1,12 +1,13 @@
 class Jogo {
   constructor() {
-    this.inimigoAtual = 0;
+    this.indice = 0;
+    this.mapa = cartucho.mapa;
   }
 
   setup() {
     cenario = new Cenario(imagemCenario, 3);
     pontuacao = new Pontuacao();
-    vida = new Vida(3, 3);
+    vida = new Vida(cartucho.configuracoes.vidaMaxima, cartucho.configuracoes.vidaInicial);
     personagem = new Personagem(matrizPersonagem, imagemPersonagem, 0, 30, 110, 135, 220, 270);
     const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 52, 30,52, 52, 104, 104);
     const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width - 200, 20,200, 200, 400, 400);
@@ -36,25 +37,32 @@ class Jogo {
     personagem.exibe();
     personagem.aplicaGravidade();
 
-    const inimigo = inimigos[this.inimigoAtual];
+    const linhaAtual = this.mapa[this.indice];
+    const inimigo = inimigos[linhaAtual.inimigo];
     const inimigoVisivel = inimigo.x < -inimigo.largura;
 
+    inimigo.velocidade = linhaAtual.velocidade;
     inimigo.exibe();
     inimigo.move();
 
     if (inimigoVisivel) {
-      this.inimigoAtual++;
-      if (this.inimigoAtual > inimigos.length) {
-        this.inimigoAtual = 0;
+      this.indice++;
+      inimigo.aparece();
+      if (this.indice > this.mapa.length - 1) {
+        this.indice = 0;
       }
-      inimigo.velocidade = parseInt(random(10, 30));
     }
 
     if (personagem.estaColidindo(inimigo)) {
       vida.perdeVida();
+      personagem.ficaInvencivel();
 
-      image(imagemGameOver, width/2 - 200, height/3);
-      noLoop();
+      if (vida.vidas === 0) {
+        image(imagemGameOver, width/2 - 200, height/3);
+        noLoop();
+      }
+
+
     }
   }
 }
